@@ -12,4 +12,25 @@ class SongsController < ApplicationController
         # @genre = Genre.find(@song.genre_id)
         render "show"
     end
+
+    def new
+        @song = Song.new
+        render 'new'
+    end
+
+    def create
+        name = params["song"]["name"]
+        artist = Artist.find_or_create_by(name: params["song"]["artist"])
+        genre = Genre.find_or_create_by(name: params["song"]["genre"])
+        song = Song.create(name: name, artist: artist, genre: genre)
+        redirect_to song_path(song)
+    end
+
+    def edit
+
+    end
+
+    def update
+        
+    end
 end
